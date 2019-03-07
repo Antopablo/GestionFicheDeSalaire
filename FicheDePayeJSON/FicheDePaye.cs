@@ -21,6 +21,15 @@ namespace FicheDePayeJSON
             set { _vacancesJours = value; }
         }
 
+        private double _vacancesHeures;
+
+        public double VacancesHeures
+        {
+            get { return _vacancesHeures; }
+            set { _vacancesHeures = value; }
+        }
+
+
         private string _debutPeriode;
         public string DebutPeriode
         {
@@ -41,11 +50,12 @@ namespace FicheDePayeJSON
             _debutPeriode = debutPeriode;
             _finPeriode = finPeriode;
             _vacancesJours = vac;
+            _vacancesHeures = vac * 7;
         }
 
         public override string ToString()
         {                                                                                                                                                 // divisé par 4.6 pour s'approché de la réalité sur 1 mois
-            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " + Math.Round(NbHeure / 4.6) + " heures, pour un salaire de " + Math.Round((NbHeure / 4.6) * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
+            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " + (Math.Round(NbHeure / 4.6)-VacancesHeures) + " heures, pour un salaire de " + Math.Round((NbHeure / 4.6) * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
             
         }
     }

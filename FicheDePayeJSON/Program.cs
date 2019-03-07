@@ -49,7 +49,7 @@ namespace FicheDePayeJSON
                 Console.WriteLine("Date de fin des vacances format dd/MM/YYYY");
                 string DateFinVac = Console.ReadLine();
                 DateTime DateFinVacances = DateTime.Parse(DateFinVac);
-                JourDeVacances = DateFinVacances.Subtract(DateDebutVacances).TotalDays;
+                JourDeVacances = (DateFinVacances.Subtract(DateDebutVacances).TotalDays+1);
             }
             return JourDeVacances;
         }
