@@ -1,0 +1,11 @@
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\bin\Debug\netcoreapp2.1\FicheDePayeJSON.deps.json
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\bin\Debug\netcoreapp2.1\FicheDePayeJSON.runtimeconfig.json
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\bin\Debug\netcoreapp2.1\FicheDePayeJSON.runtimeconfig.dev.json
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\bin\Debug\netcoreapp2.1\FicheDePayeJSON.dll
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\bin\Debug\netcoreapp2.1\FicheDePayeJSON.pdb
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.csprojAssemblyReference.cache
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.csproj.CoreCompileInputs.cache
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.AssemblyInfoInputs.cache
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.AssemblyInfo.cs
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.dll
+C:\Users\stagiaire\source\repos\FicheDePayeJSON\FicheDePayeJSON\obj\Debug\netcoreapp2.1\FicheDePayeJSON.pdb
