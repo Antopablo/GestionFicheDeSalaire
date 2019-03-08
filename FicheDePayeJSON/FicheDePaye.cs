@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace FicheDePayeJSON
 {
+    [DataContract]
     class FicheDePaye : Contrat
     {
        
         private double _nbHeure;
+        [DataMember]
         public double NbHeure
         {
             get { return _nbHeure; }
@@ -15,6 +20,7 @@ namespace FicheDePayeJSON
         }
 
         private double _vacancesJours;
+        [DataMember]
         public double VacancesJours
         {
             get { return _vacancesJours; }
@@ -22,7 +28,7 @@ namespace FicheDePayeJSON
         }
 
         private double _vacancesHeures;
-
+        [DataMember]
         public double VacancesHeures
         {
             get { return _vacancesHeures; }
@@ -31,6 +37,7 @@ namespace FicheDePayeJSON
 
 
         private string _debutPeriode;
+        [DataMember]
         public string DebutPeriode
         {
             get { return _debutPeriode; }
@@ -38,6 +45,7 @@ namespace FicheDePayeJSON
         }
 
         private string _finPeriode;
+        [DataMember]
         public string FinPeriode
         {
             get { return _finPeriode; }
@@ -46,7 +54,8 @@ namespace FicheDePayeJSON
 
         public FicheDePaye(Salarié s, Contrat c, double heuretot, double vac, string debutPeriode, string finPeriode) : base(s, c.TauxHoraire)
         {
-            _nbHeure = Math.Round(heuretot);
+            //_nbHeure = Math.Round(heuretot);
+            _nbHeure = (Math.Round(heuretot / 4.6));
             _debutPeriode = debutPeriode;
             _finPeriode = finPeriode;
             _vacancesJours = vac;
@@ -55,7 +64,7 @@ namespace FicheDePayeJSON
 
         public override string ToString()
         {                                                                                                                                                 // divisé par 4.6 pour s'approché de la réalité sur 1 mois
-            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " + (Math.Round(NbHeure / 4.6)-VacancesHeures) + " heures, pour un salaire de " + Math.Round((NbHeure / 4.6) * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
+            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " + /*(Math.Round(NbHeure / 4.6)-VacancesHeures)*/ (NbHeure - VacancesHeures) + " heures, pour un salaire de " + /*Math.Round((NbHeure / 4.6)*/ (NbHeure * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
             
         }
     }

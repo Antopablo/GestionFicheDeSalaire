@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace FicheDePayeJSON
 {
@@ -17,8 +21,9 @@ namespace FicheDePayeJSON
             
             Salarié Antony = new Salarié("LEFEVRE", "Antony", new DateTime(1993, 10, 07));
             Contrat ContratAntony = new Contrat(Antony, 10);
+            List<FicheDePaye> ListeFDP = new List<FicheDePaye>();
 
-
+            /* calcul des heures dans le mois*/
             Console.WriteLine("date de début de période");
             string coucou = Console.ReadLine();
             DateTime DebutPeriode =  DateTime.Parse(coucou);
@@ -26,12 +31,18 @@ namespace FicheDePayeJSON
             coucou = Console.ReadLine();
             DateTime FinPeriode =  DateTime.Parse(coucou);
             TimeSpan HeuresTotal = FinPeriode.Subtract(DebutPeriode);
-            Console.WriteLine(DebutPeriode);
-            Console.WriteLine(FinPeriode);
 
             
             FicheDePaye FDPAntony = new FicheDePaye(Antony, ContratAntony, HeuresTotal.TotalHours ,vacances(), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString());
+            ListeFDP.Add(FDPAntony);
             Console.WriteLine(FDPAntony);
+
+            /* écriture dans le fichier JSON */
+            Stream memstream = new StreamWriter("log.json").BaseStream;
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<FicheDePaye>));
+            ser.WriteObject(memstream, ListeFDP);
+            memstream.Close();
+            Console.WriteLine("Fin d'écriture");
 
         }
 
@@ -53,5 +64,6 @@ namespace FicheDePayeJSON
             }
             return JourDeVacances;
         }
+
     }
 }

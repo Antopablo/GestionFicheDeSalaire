@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace FicheDePayeJSON
 {
+    [DataContract]
     class Salarié
     {
         private string _nom;
+        [DataMember]
         public string Nom
         {
             get { return _nom; }
@@ -14,6 +19,7 @@ namespace FicheDePayeJSON
         }
 
         private string _prenom;
+        [DataMember]
         public string Prenom
         {
             get { return _prenom; }
@@ -21,6 +27,7 @@ namespace FicheDePayeJSON
         }
 
         private DateTime _dateDeNaissance;
+        [DataMember]
         public DateTime DateDeNaissance
         {
             get { return _dateDeNaissance; }
