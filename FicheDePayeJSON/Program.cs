@@ -19,58 +19,48 @@ namespace FicheDePayeJSON
              * afficher l'historique des modif */
             #endregion
             
-            string datePeriod;
             string UserChoice;
+            int UserChoiceINT;
             List<Salarié> ListeSalarie = new List<Salarié>();
             List<Contrat> ListeContrat = new List<Contrat>();
             List<FicheDePaye> ListeFDP = new List<FicheDePaye>();
 
-
-           
-
+            
             do
             {
-                Console.WriteLine("Voulez-vous recruter un salarié ?");
-                UserChoice = Console.ReadLine();
-                if (UserChoice == "oui")
+                //Console.WriteLine("Voulez-vous recruter un salarié ? oui/non");
+                Console.WriteLine("Que faire ? 1)Recruter un salarié  2) Licencié un salarié 3) Générer fiche de salaire 4)FinDuProg");
+                UserChoiceINT = Int32.Parse(Console.ReadLine());
+                if (UserChoiceINT == 1)
                 {
                     CreationSalarié(ListeSalarie); //création + ajout dans la liste d'un salarié
                     EcrireDansJson(ListeSalarie); // sauvegarde dans le fichier Json
                     CreationContrat(ListeSalarie, ListeContrat);
                     EcrireDansJson(ListeContrat);
                 }
-            } while (UserChoice == "oui");
+                else if (UserChoiceINT == 2)
+                {
+                    Console.WriteLine("nom de la personne à virer");
+                    string vireNom = Console.ReadLine();
+                    Console.WriteLine("prenom de la personne à virer");
+                    string virePrenom = Console.ReadLine();
+                    LicencierSalarie(ListeContrat, vireNom, virePrenom);
+                }
+                else if (UserChoiceINT == 3)
+                {
+                    Console.WriteLine("######## Création automatique des fiches de salaire ########");
+                    CreationFicheDePaie(ListeSalarie, ListeContrat, ListeFDP);
+                    EcrireDansJson(ListeFDP);
+                    Console.WriteLine("####### Fiches de salaire disponibles #######");
+                }
+                else if (UserChoiceINT == 4)
+                {
+                    Console.WriteLine("fin du prog");
+                    Environment.Exit(0);
+                }
+            } while (UserChoiceINT == 1 || UserChoiceINT == 2);
 
-            Console.WriteLine("######## UN MOIS PLUS TARD ########");
-            Console.WriteLine("######## Création automatique des fiches de salaire ########");
 
-            CreationFicheDePaie(ListeSalarie, ListeContrat, ListeFDP);
-            EcrireDansJson(ListeFDP);
-
-            Console.WriteLine("####### Fiches de salaire disponibles #######");
-
-
-
-
-            /* calcul des heures dans le mois*/
-
-            /*            Salarié Antony = new Salarié("LEFEVRE", "Antony", new DateTime(1993, 10, 07));
-                       Contrat ContratAntony = new Contrat(Antony, 10);
-                       Console.WriteLine("date de début de période");
-                       datePeriod = Console.ReadLine();
-                       DateTime DebutPeriode =  DateTime.Parse(datePeriod);
-                       Console.WriteLine("date de fin de période");
-                       datePeriod = Console.ReadLine();
-                       DateTime FinPeriode =  DateTime.Parse(datePeriod);
-                       TimeSpan HeuresTotal = FinPeriode.Subtract(DebutPeriode);
-
-                       /* fonctionne pour les 2 */
-            /*           ListeFDP.Add(new FicheDePaye(Antony, ContratAntony, HeuresTotal.TotalHours, vacances(Antony), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString()));
-                       ListeFDP.Add(new FicheDePaye(new Salarié("GEORGES", "Alexis", new DateTime(1990, 07, 01)), new Contrat(new Salarié("GEORGES", "Alexis", new DateTime(1990, 07, 01)), 15), HeuresTotal.TotalHours, vacances(new Salarié("GEORGES", "Alexis", new DateTime(1990, 07, 01))), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString()));
-
-                        EcrireDansJson(ListeFDP);
-
-             */
         }
 
         static public double vacances(Salarié s)
@@ -151,10 +141,10 @@ namespace FicheDePayeJSON
         static public void CreationFicheDePaie(List<Salarié> s,List<Contrat> c, List<FicheDePaye> fdp)
         {
             string datePeriod;
-            Console.WriteLine("date de début de période");
+            Console.WriteLine("date de début de période format jj/mm/yyyy");
             datePeriod = Console.ReadLine();
             DateTime DebutPeriode = DateTime.Parse(datePeriod);
-            Console.WriteLine("date de fin de période");
+            Console.WriteLine("date de fin de période format jj/mm/yyyy");
             datePeriod = Console.ReadLine();
             DateTime FinPeriode = DateTime.Parse(datePeriod);
             TimeSpan HeuresTotal = FinPeriode.Subtract(DebutPeriode);
@@ -162,6 +152,26 @@ namespace FicheDePayeJSON
             {
                 FicheDePaye FichePaye = new FicheDePaye(s[i], c[i], HeuresTotal.TotalHours, vacances(s[i]), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString());
                 fdp.Add(FichePaye);
+            }
+            
+        }
+
+        static public void LicencierSalarie(List<Contrat> c, string nom, string prenom)
+        {
+            foreach (Contrat item in c)
+            {
+                if (item.Nom == nom && item.Prenom == prenom)
+                {
+                    Console.WriteLine(item.Nom + " " + item.Prenom + " a été viré comme une merdeeee");
+                    c.Remove(item);
+                    break;
+                }
+                
+            }
+
+            foreach (Contrat item in c)
+            {
+                Console.WriteLine(item.Prenom);
             }
             
         }
