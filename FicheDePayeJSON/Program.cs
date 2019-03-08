@@ -41,6 +41,17 @@ namespace FicheDePayeJSON
                 }
             } while (UserChoice == "oui");
 
+            Console.WriteLine("######## UN MOIS PLUS TARD ########");
+            Console.WriteLine("######## Création automatique des fiches de salaire ########");
+
+            CreationFicheDePaie(ListeSalarie, ListeContrat, ListeFDP);
+            EcrireDansJson(ListeFDP);
+
+            Console.WriteLine("####### Fiches de salaire disponibles #######");
+
+
+
+
             /* calcul des heures dans le mois*/
 
             /*            Salarié Antony = new Salarié("LEFEVRE", "Antony", new DateTime(1993, 10, 07));
@@ -135,6 +146,24 @@ namespace FicheDePayeJSON
             UserChoiceINT = Int32.Parse(Console.ReadLine());
             Contrat Cont = new Contrat(s[s.Count-1], UserChoiceINT);
             c.Add(Cont);
+        }
+
+        static public void CreationFicheDePaie(List<Salarié> s,List<Contrat> c, List<FicheDePaye> fdp)
+        {
+            string datePeriod;
+            Console.WriteLine("date de début de période");
+            datePeriod = Console.ReadLine();
+            DateTime DebutPeriode = DateTime.Parse(datePeriod);
+            Console.WriteLine("date de fin de période");
+            datePeriod = Console.ReadLine();
+            DateTime FinPeriode = DateTime.Parse(datePeriod);
+            TimeSpan HeuresTotal = FinPeriode.Subtract(DebutPeriode);
+            for (int i = 0; i < c.Count; i++)
+            {
+                FicheDePaye FichePaye = new FicheDePaye(s[i], c[i], HeuresTotal.TotalHours, vacances(s[i]), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString());
+                fdp.Add(FichePaye);
+            }
+            
         }
 
     }
