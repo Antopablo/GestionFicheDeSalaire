@@ -7,6 +7,7 @@ using System.IO;
 
 namespace FicheDePayeJSON
 {
+    
     class Program
     {
         static void Main(string[] args)
@@ -17,25 +18,24 @@ namespace FicheDePayeJSON
              * faire janvier / février 
              * afficher l'historique des modif */
             #endregion
-
             
+            string datePeriod;
             Salarié Antony = new Salarié("LEFEVRE", "Antony", new DateTime(1993, 10, 07));
             Contrat ContratAntony = new Contrat(Antony, 10);
             List<FicheDePaye> ListeFDP = new List<FicheDePaye>();
 
             /* calcul des heures dans le mois*/
             Console.WriteLine("date de début de période");
-            string coucou = Console.ReadLine();
-            DateTime DebutPeriode =  DateTime.Parse(coucou);
+            datePeriod = Console.ReadLine();
+            DateTime DebutPeriode =  DateTime.Parse(datePeriod);
             Console.WriteLine("date de fin de période");
-            coucou = Console.ReadLine();
-            DateTime FinPeriode =  DateTime.Parse(coucou);
+            datePeriod = Console.ReadLine();
+            DateTime FinPeriode =  DateTime.Parse(datePeriod);
             TimeSpan HeuresTotal = FinPeriode.Subtract(DebutPeriode);
 
-            
-            FicheDePaye FDPAntony = new FicheDePaye(Antony, ContratAntony, HeuresTotal.TotalHours ,vacances(), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString());
-            ListeFDP.Add(FDPAntony);
-            Console.WriteLine(FDPAntony);
+            /* fonctionne pour les 2 */
+           ListeFDP.Add(new FicheDePaye(Antony, ContratAntony, HeuresTotal.TotalHours, vacances(), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString()));
+           ListeFDP.Add(new FicheDePaye(new Salarié("GEORGES", "Alexis", new DateTime(1990, 07, 01)), new Contrat(new Salarié("GEORGES", "Alexis", new DateTime(1990, 07, 01)), 15), HeuresTotal.TotalHours, vacances(), DebutPeriode.ToLongDateString(), FinPeriode.ToLongDateString()));
 
             /* écriture dans le fichier JSON */
             Stream memstream = new StreamWriter("log.json").BaseStream;

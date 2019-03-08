@@ -55,7 +55,7 @@ namespace FicheDePayeJSON
         public FicheDePaye(Salarié s, Contrat c, double heuretot, double vac, string debutPeriode, string finPeriode) : base(s, c.TauxHoraire)
         {
             //_nbHeure = Math.Round(heuretot);
-            _nbHeure = (Math.Round(heuretot / 4.6));
+            _nbHeure = (Math.Round(heuretot / 4.6)-7);// divisé par 4.6 pour s'approché de la réalité sur 1 mois
             _debutPeriode = debutPeriode;
             _finPeriode = finPeriode;
             _vacancesJours = vac;
@@ -63,8 +63,8 @@ namespace FicheDePayeJSON
         }
 
         public override string ToString()
-        {                                                                                                                                                 // divisé par 4.6 pour s'approché de la réalité sur 1 mois
-            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " + /*(Math.Round(NbHeure / 4.6)-VacancesHeures)*/ (NbHeure - VacancesHeures) + " heures, pour un salaire de " + /*Math.Round((NbHeure / 4.6)*/ (NbHeure * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
+        {                                                                                                                                                 
+            return "L'employé(e) s'appelle " + base.Nom + " " + base.Prenom + "." + " Du " + DebutPeriode + " au " + FinPeriode + ", l'employé a travaillé " +  (NbHeure - VacancesHeures) + " heures, pour un salaire de " +  (NbHeure * TauxHoraire) + "euros. Le salarié à pris " + VacancesJours + " jours de vacances"; ;
             
         }
     }
